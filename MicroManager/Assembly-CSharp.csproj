@@ -60,8 +60,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\RevenueDisplay.cs" />
+    <Compile Include="Assets\Scripts\Task.cs" />
+    <Compile Include="Assets\Scripts\Employee.cs" />
+    <Compile Include="Assets\Scripts\TaskManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Scripts\TaskLists\graph1.txt" />
+    <None Include="Assets\Fonts\edge-of-the-galaxy-font\info.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.1.0f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

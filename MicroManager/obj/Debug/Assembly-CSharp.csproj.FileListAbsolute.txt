@@ -1,0 +1,2 @@
+C:\Users\NightShade\Documents\Unity\MicroManager\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+C:\Users\NightShade\Documents\Unity\MicroManager\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
