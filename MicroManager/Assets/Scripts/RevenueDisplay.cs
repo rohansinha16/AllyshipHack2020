@@ -1,37 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RevenueDisplay : MonoBehaviour
 {
-
-    private int revenue = 0;
-    public Text revenueText;
+    public Text RevenueText;
 
     // Start is called before the first frame update
     void Start()
     {
-        revenueText.text = GetRevenueText();
+        RevenueText.text = GetRevenueText();
     }
 
     // Update is called once per frame
     void Update()
     {
-        revenueText.text = GetRevenueText();
-        if(Input.GetMouseButtonUp(0))
-        {
-            CompleteTask();
-        }
+        RevenueText.text = GetRevenueText();
     }
 
     private string GetRevenueText()
     {
-        return "Revenue: $" + revenue;
-    }
-
-    public void CompleteTask()
-    {
-        revenue += 100;
+        return "Revenue: $" + Revenue.GetRevenue();
     }
 }
