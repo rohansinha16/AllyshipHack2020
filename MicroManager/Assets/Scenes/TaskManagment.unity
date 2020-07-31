@@ -568,6 +568,7 @@ GameObject:
   - component: {fileID: 612852482}
   - component: {fileID: 612852481}
   - component: {fileID: 612852480}
+  - component: {fileID: 612852483}
   m_Layer: 5
   m_Name: EmployeeCanvas
   m_TagString: Untagged
@@ -659,6 +660,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &612852483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612852478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a02b556fbb4653498433eaf5421f99d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EmployeeCanvas: {fileID: 612852478}
+  bounceTime: 0.05
+  pose: 0
 --- !u!1 &627169996
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class Employee : ScriptableObject
     public string Name;
     private int Morale = 50; // between 0 and 100
     public Queue<Task> TaskQueue = new Queue<Task>();
-    private double updateInterval = 1;
+    private double updateInterval = 0.5;
 
     public void AssignEmployee(string _name)
     {
