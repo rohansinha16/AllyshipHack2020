@@ -1,1 +1,1 @@
-Code is pretty rough, but it works, will clean it up later and add more documentation.
+Code is pretty rough and needs cleanup and documentation.
