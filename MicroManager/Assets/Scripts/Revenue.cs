@@ -7,7 +7,8 @@ public class Revenue : ScriptableObject
 
     public static void Earn(int amount)
     {
-        revenue += amount * 9;
+        System.Random rand = new System.Random();
+        revenue += (int) (amount * (rand.NextDouble()/2 + .5) * 10);
     }
 
     public static void CompleteTask()

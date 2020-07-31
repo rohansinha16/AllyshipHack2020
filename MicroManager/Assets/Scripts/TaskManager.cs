@@ -6,29 +6,115 @@ using UnityEngine.EventSystems;
 
 public class TaskManager : MonoBehaviour
 {
-    static List<Employee> Employees;
+    static List<Employee> Employees = new List<Employee>();
     static Dictionary<string, Task> Tasks = new Dictionary<string, Task>();
     static Dictionary<string, GameObject> Buttons = new Dictionary<string, GameObject>();
     static List<List<Task>> TasksByLevel = new List<List<Task>>();
     static string ActiveButton;
+
+    // Employee Buttons
+    public GameObject James;
+    public GameObject Monique;
+    public GameObject Kelly;
+    public GameObject Pallavi;
+    public GameObject HyunJin;
+
     public GameObject TaskCanvas;
     public GameObject ButtonPrefab;
     public Text ActiveTaskText;
+
+
     // Use this for initialization
     void Start()
     {
+        James.name = "James";
+        James.GetComponentInChildren<Text>().text = "James";
+        Monique.name = "Monique";
+        Kelly.name = "Kelly";
+        Pallavi.name = "Pallavi";
+        HyunJin.name = "HyunJin";
         readTaskList(Application.dataPath + @"/Scripts/TaskLists/graph1.txt");
         DrawTaskButtons(ButtonPrefab, TaskCanvas);
+        Employee e = ScriptableObject.CreateInstance<Employee>();
+        e.AssignEmployee("James");
+        Employees.Add(e);
+        James.GetComponent<Button>().onClick.AddListener(() => {
+            e.AssignTask(Tasks[ActiveButton]);
+            if (!string.IsNullOrEmpty(ActiveButton))
+            {
+                ActiveButton += " to " + EventSystem.current.currentSelectedGameObject.name;
+            }
+        });
+
+        e = ScriptableObject.CreateInstance<Employee>();
+        e.AssignEmployee("Monique");
+        Employees.Add(e);
+        Monique.GetComponent<Button>().onClick.AddListener(() => {
+            e.AssignTask(Tasks[ActiveButton]);
+            if (!string.IsNullOrEmpty(ActiveButton))
+            {
+                ActiveButton += " to " + EventSystem.current.currentSelectedGameObject.name;
+            }
+        });
+
+        e = ScriptableObject.CreateInstance<Employee>();
+        e.AssignEmployee("Kelly");
+        Employees.Add(e);
+        Kelly.GetComponent<Button>().onClick.AddListener(() => {
+            e.AssignTask(Tasks[ActiveButton]);
+            if (!string.IsNullOrEmpty(ActiveButton))
+            {
+                ActiveButton += " to " + EventSystem.current.currentSelectedGameObject.name;
+            }
+        });
+
+        e = ScriptableObject.CreateInstance<Employee>();
+        e.AssignEmployee("Pallavi");
+        Employees.Add(e);
+        Pallavi.GetComponent<Button>().onClick.AddListener(() => {
+            e.AssignTask(Tasks[ActiveButton]);
+            if (!string.IsNullOrEmpty(ActiveButton))
+            {
+                ActiveButton += " to " + EventSystem.current.currentSelectedGameObject.name;
+            }
+        });
+
+        e = ScriptableObject.CreateInstance<Employee>();
+        e.AssignEmployee("HyunJin");
+        Employees.Add(e);
+        HyunJin.GetComponent<Button>().onClick.AddListener(() => {
+            e.AssignTask(Tasks[ActiveButton]);
+            if (!string.IsNullOrEmpty(ActiveButton))
+            {
+                ActiveButton += " to " + EventSystem.current.currentSelectedGameObject.name;
+            }
+        });
+
+        /*
+        Employees.Add(new Employee("Monique"));
+        Monique.GetComponent<Button>().onClick.AddListener(() => Employees[Employees.Count - 1].AssignTask(Tasks[ActiveButton]));
+        Employees.Add(new Employee("Kelly"));
+        Kelly.GetComponent<Button>().onClick.AddListener(() => Employees[Employees.Count - 1].AssignTask(Tasks[ActiveButton]));
+        Employees.Add(new Employee("Pallavi"));
+        Pallavi.GetComponent<Button>().onClick.AddListener(() => Employees[Employees.Count - 1].AssignTask(Tasks[ActiveButton]));
+        Employees.Add(new Employee("HyunJin"));
+        HyunJin.GetComponent<Button>().onClick.AddListener(() => Employees[Employees.Count - 1].AssignTask(Tasks[ActiveButton]));
+        */
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        UpdateTaskButtons();
+        foreach(Employee e in Employees)
         {
-            TaskCanvas.GetComponent<CanvasRenderer>().Clear();
+            e.Update();
         }
-        if (!string.IsNullOrEmpty(ActiveButton))
+        if (!string.IsNullOrEmpty(ActiveButton) && ActiveButton.Contains("to"))
+        {
+            ActiveTaskText.text = "Assigning Task: " + ActiveButton;
+        }
+        else if (!string.IsNullOrEmpty(ActiveButton) && !Tasks[ActiveButton].Assigned)
         {
             ActiveTaskText.text = "Assigning Task: " + ActiveButton;
         }
@@ -36,7 +122,7 @@ public class TaskManager : MonoBehaviour
         {
             ActiveTaskText.text = "";
         }
-        
+
     }
 
     public static void DrawTaskButtons(GameObject _buttonPrefab, GameObject _taskCanvas)
@@ -47,12 +133,12 @@ public class TaskManager : MonoBehaviour
             int shift = 0;
             if (i < TasksByLevel.Count - 1)
             {
-                shift = (TasksByLevel[i + 1].Count - TasksByLevel[i].Count) * 50;
+                shift = (TasksByLevel[i + 1].Count - TasksByLevel[i].Count) * 45;
             }
             previousShift += shift;
             for (int j = 0; j < TasksByLevel[i].Count; j++)
             {
-                Buttons.Add(TasksByLevel[i][j].Name, CreateTaskButton(TasksByLevel[i][j], _buttonPrefab, _taskCanvas, previousShift + j * 100 + 20, (860 - TasksByLevel.Count * 100) + i * 100 + 110));
+                Buttons.Add(TasksByLevel[i][j].Name, CreateTaskButton(TasksByLevel[i][j], _buttonPrefab, _taskCanvas, previousShift + j * 90 + 20, (Screen.height - 40 - TasksByLevel.Count * 90) + i * 90 + 110));
                 Buttons[TasksByLevel[i][j].Name].GetComponent<Button>().onClick.AddListener(() => {
                     ActiveButton = EventSystem.current.currentSelectedGameObject.name;
                 });
@@ -60,6 +146,32 @@ public class TaskManager : MonoBehaviour
         }
     }
 
+    public static void UpdateTaskButtons()
+    {
+        for (int i = TasksByLevel.Count - 1; i >= 0; i--)
+        {
+            for (int j = 0; j < TasksByLevel[i].Count; j++)
+            {
+                Sprite buttonAssigned = Resources.Load<Sprite>("Pictures/buttonAssigned");
+                Sprite buttonAvailable = Resources.Load<Sprite>("Pictures/buttonAvailable");
+                Sprite buttonComplete = Resources.Load<Sprite>("Pictures/buttonComplete");
+                Task t = TasksByLevel[i][j];
+                t.Update();
+                if (t.Completed)
+                {
+                    Buttons[t.Name].GetComponent<Image>().sprite = buttonComplete;
+                }
+                else if (t.Assigned)
+                {
+                    Buttons[t.Name].GetComponent<Image>().sprite = buttonAssigned;
+                }
+                else if (t.DependentCompleted)
+                {
+                    Buttons[t.Name].GetComponent<Image>().sprite = buttonAvailable;
+                }
+            }
+        }
+    }
 
     public static GameObject CreateTaskButton(Task task, GameObject _buttonPrefab, GameObject _taskCanvas, int x, int y)
     {
@@ -119,14 +231,14 @@ public class TaskManager : MonoBehaviour
                 // add to dictionary to fetch by name
                 Tasks.Add(ids[0], thisTask);
                 // add to nested list to organize by level
-                while(TasksByLevel.Count <= level)
+                while (TasksByLevel.Count <= level)
                 {
                     TasksByLevel.Add(new List<Task>());
                 }
                 TasksByLevel[level].Add(thisTask);
                 completeLines.Add(line);
             }
-            foreach(string line in completeLines)
+            foreach (string line in completeLines)
             {
                 incompleteLines.Remove(line);
             }

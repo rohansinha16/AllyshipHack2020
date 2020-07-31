@@ -32,7 +32,7 @@ public class Task : ScriptableObject
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         List<Task> completedTasks = new List<Task>();
         foreach(Task task in DependentTasks)
@@ -71,6 +71,7 @@ public class Task : ScriptableObject
                 progress = 1;
             }
             Completion += progress;
+            Revenue.Earn(progress);
             if(Completion >= 100)
             {
                 Completion = 100;
