@@ -30,10 +30,10 @@ For example:
 
 New Hire: Congratulations! It is your first day at Contoso and your team is excited to meet you …… you are on a 6 month probation and your task is to ensure that all your manager approves you for confirmation as a FTE
 Manager: Contoso just won a huge project and you have been task with delivering it with the following metrics: - metric 1, metric 2….  Threshold of team members mood bars to remain on the team.
- Short description of the scenario (e.g. you get into the in the elevator…
+
+Short description of the scenario (e.g. you get into the in the elevator…
 
 5. The player will be given options to have conversations or take action with characters in the game, based on interactions, metric bars will be adjusted. Options for conversations will infused with real-life examples of microaggressions faced in the work place
-
 6. The impact of choices within each situation is told by a narrative from a real person or through an information card/email sent to within the game.
 7. The user is provided with information entailing response training related to context and taught how to react appropriately. Instead of explaining situations people can experience them and relate their actions to them and develop empathy for their co-workers.
 
